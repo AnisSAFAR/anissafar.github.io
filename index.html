@@ -7,532 +7,131 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #0a0e1a;
-    --bg2: #0f1525;
-    --bg3: #151d35;
-    --accent: #00e5a0;
-    --accent2: #00b4ff;
-    --text: #e8eaf0;
-    --muted: #7a8499;
-    --border: rgba(0,229,160,0.15);
-    --card: rgba(15,21,37,0.8);
+    --bg:#0a0e1a; --bg2:#0f1525; --bg3:#151d35;
+    --accent:#00e5a0; --accent2:#00b4ff;
+    --text:#e8eaf0; --muted:#7a8499;
+    --border:rgba(0,229,160,0.15); --card:rgba(15,21,37,0.8);
   }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
 
-  * { margin:0; padding:0; box-sizing:border-box; }
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,26,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .nav-logo{font-family:'Space Mono',monospace;font-size:1rem;color:var(--accent);text-decoration:none;letter-spacing:.05em;}
+  .nav-links{display:flex;gap:1.8rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;letter-spacing:.05em;transition:color .2s;text-transform:uppercase;}
+  .nav-links a:hover{color:var(--accent);}
 
-  html { scroll-behavior:smooth; }
+  #accueil{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+  #heroCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+  .hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+  .hero-content{position:relative;z-index:1;max-width:700px;}
+  .hero-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:.75rem;color:var(--accent);border:1px solid var(--accent);padding:.3rem .9rem;border-radius:2px;letter-spacing:.12em;margin-bottom:1.5rem;text-transform:uppercase;animation:fadeUp .6s ease .1s both;}
+  .hero-name{font-size:clamp(2.5rem,6vw,4rem);font-weight:700;line-height:1.1;margin-bottom:1rem;letter-spacing:-.02em;animation:fadeUp .6s ease .2s both;}
+  .hero-name span{color:var(--accent);}
+  .hero-sub{font-size:1.1rem;color:var(--muted);margin-bottom:.6rem;font-weight:300;animation:fadeUp .6s ease .3s both;}
+  .hero-sub strong{color:var(--text);font-weight:600;}
+  .hero-desc{font-size:.95rem;color:var(--muted);margin-bottom:2.5rem;font-style:italic;animation:fadeUp .6s ease .4s both;}
+  .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s ease .5s both;}
+  .btn{display:inline-block;padding:.75rem 1.8rem;font-size:.85rem;font-family:'Space Mono',monospace;text-decoration:none;border-radius:3px;transition:all .2s;letter-spacing:.04em;cursor:pointer;}
+  .btn-primary{background:var(--accent);color:#0a0e1a;font-weight:700;}
+  .btn-primary:hover{background:#00ffb3;transform:translateY(-2px);}
+  .btn-outline{border:1px solid var(--border);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
 
-  body {
-    font-family: 'Sora', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height:1.7;
-    overflow-x:hidden;
-  }
+  section{padding:5rem 2rem;}
+  .container{max-width:900px;margin:0 auto;}
+  .section-label{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem;}
+  .section-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;margin-bottom:3rem;letter-spacing:-.02em;}
+  .section-title::after{content:'';display:block;width:40px;height:3px;background:var(--accent);margin-top:.6rem;}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top:0; left:0; right:0; z-index:100;
-    background: rgba(10,14,26,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-  .nav-logo {
-    font-family: 'Space Mono', monospace;
-    font-size: 1rem;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-  }
-  .nav-links {
-    display: flex;
-    gap: 1.8rem;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 0.05em;
-    transition: color 0.2s;
-    text-transform: uppercase;
-  }
-  .nav-links a:hover { color: var(--accent); }
+  #about{background:var(--bg2);}
+  .about-text{font-size:1.05rem;color:var(--muted);line-height:1.9;max-width:720px;}
+  .about-text strong{color:var(--text);}
 
-  /* ── HERO ── */
-  #accueil {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 6rem 2rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-grid {
-    position: absolute; inset:0;
-    background-image:
-      linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-  .hero-content { position:relative; z-index:1; max-width:700px; }
+  #skills{background:var(--bg);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;transition:border-color .2s,transform .2s;}
+  .skill-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+  .skill-icon{font-size:1.5rem;margin-bottom:.8rem;}
+  .skill-cat{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;}
+  .skill-list{list-style:none;color:var(--muted);font-size:.88rem;line-height:1.9;}
+  .skill-list li::before{content:'> ';color:var(--accent);}
 
-  .hero-tag {
-    display: inline-block;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 0.3rem 0.9rem;
-    border-radius: 2px;
-    letter-spacing: 0.12em;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-  }
+  #projets{background:var(--bg2);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+  .project-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:1.8rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden;}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .25s;}
+  .project-card:hover{border-color:rgba(0,229,160,.4);transform:translateY(-4px);}
+  .project-card:hover::before{opacity:1;}
+  .project-tag{display:inline-block;font-size:.7rem;color:var(--accent2);border:1px solid rgba(0,180,255,.3);padding:.15rem .6rem;border-radius:2px;margin-bottom:.8rem;font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.08em;}
+  .project-title{font-size:1.05rem;font-weight:700;margin-bottom:.7rem;color:var(--text);}
+  .project-desc{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem;}
+  .project-techs{display:flex;flex-wrap:wrap;gap:.4rem;}
+  .tech-badge{font-size:.72rem;font-family:'Space Mono',monospace;background:rgba(0,229,160,.08);color:var(--accent);padding:.2rem .6rem;border-radius:2px;border:1px solid rgba(0,229,160,.2);}
 
-  .hero-name {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-  }
-  .hero-name span { color: var(--accent); }
+  #formation{background:var(--bg);}
+  .timeline{position:relative;padding-left:2rem;}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border);}
+  .timeline-item{position:relative;margin-bottom:2.5rem;padding-left:1.5rem;}
+  .timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.4rem;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 8px var(--accent);}
+  .timeline-date{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.1em;margin-bottom:.3rem;}
+  .timeline-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.2rem;}
+  .timeline-school{font-size:.85rem;color:var(--muted);}
 
-  .hero-sub {
-    font-size: 1.1rem;
-    color: var(--muted);
-    margin-bottom: 0.6rem;
-    font-weight: 300;
-  }
-  .hero-sub strong { color: var(--text); font-weight: 600; }
+  #langues{background:var(--bg2);}
+  .langs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;}
+  .lang-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.5rem;text-align:center;transition:border-color .2s;}
+  .lang-card:hover{border-color:var(--accent);}
+  .lang-name{font-weight:700;font-size:.95rem;margin-bottom:.3rem;}
+  .lang-level{font-size:.78rem;color:var(--accent);font-family:'Space Mono',monospace;}
 
-  .hero-desc {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-bottom: 2.5rem;
-    font-style: italic;
-  }
+  #experience{background:var(--bg);}
+  .exp-card{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:2rem;}
+  .exp-header{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem;}
+  .exp-title{font-size:1rem;font-weight:700;}
+  .exp-date{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--accent);}
+  .exp-company{font-size:.88rem;color:var(--muted);margin-bottom:.8rem;}
+  .exp-desc{font-size:.88rem;color:var(--muted);line-height:1.8;}
 
-  .hero-btns {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 1.8rem;
-    font-size: 0.85rem;
-    font-family: 'Space Mono', monospace;
-    text-decoration: none;
-    border-radius: 3px;
-    transition: all 0.2s;
-    letter-spacing: 0.04em;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: #0a0e1a;
-    font-weight: 700;
-  }
-  .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
-  .btn-outline {
-    border: 1px solid var(--border);
-    color: var(--text);
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  #contact{background:var(--bg2);text-align:center;}
+  .contact-tagline{font-size:1rem;color:var(--muted);margin-bottom:2.5rem;max-width:500px;margin-left:auto;margin-right:auto;}
+  .contact-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+  .contact-item{display:flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.9rem;text-decoration:none;transition:color .2s;}
+  .contact-item:hover{color:var(--accent);}
 
-  /* ── SECTIONS ── */
-  section { padding: 5rem 2rem; }
-  .container { max-width: 900px; margin: 0 auto; }
+  footer{background:var(--bg);border-top:1px solid var(--border);text-align:center;padding:1.5rem;font-size:.78rem;color:var(--muted);font-family:'Space Mono',monospace;}
 
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .section-title {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 700;
-    margin-bottom: 3rem;
-    letter-spacing: -0.02em;
-  }
-  .section-title::after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 3px;
-    background: var(--accent);
-    margin-top: 0.6rem;
-  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 
-  /* ── ABOUT ── */
-  #about { background: var(--bg2); }
-  .about-text {
-    font-size: 1.05rem;
-    color: var(--muted);
-    line-height: 1.9;
-    max-width: 720px;
-  }
-  .about-text strong { color: var(--text); }
+  .sr{transition:opacity .65s ease,transform .65s ease;}
+  .sr.hidden{opacity:0;transform:translateY(28px);}
 
-  .stats {
-    display: flex;
-    gap: 2rem;
-    margin-top: 2.5rem;
-    flex-wrap: wrap;
-  }
-  .stat {
-    text-align: center;
-    padding: 1.2rem 1.8rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--card);
-    min-width: 130px;
-  }
-  .stat-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--accent);
-    display: block;
-  }
-  .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-
-  /* ── SKILLS ── */
-  #skills { background: var(--bg); }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-  }
-  .skill-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-  .skill-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
-  .skill-cat {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-  }
-  .skill-list {
-    list-style: none;
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 1.9;
-  }
-  .skill-list li::before { content: '› '; color: var(--accent); }
-
-  /* ── PROJECTS ── */
-  #projets { background: var(--bg2); }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.8rem;
-    transition: border-color 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .project-card:hover { border-color: rgba(0,229,160,0.4); transform: translateY(-4px); }
-  .project-card:hover::before { opacity: 1; }
-
-  .project-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    color: var(--accent2);
-    border: 1px solid rgba(0,180,255,0.3);
-    padding: 0.15rem 0.6rem;
-    border-radius: 2px;
-    margin-bottom: 0.8rem;
-    font-family: 'Space Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .project-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 0.7rem;
-    color: var(--text);
-  }
-  .project-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-  }
-  .project-techs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-  .tech-badge {
-    font-size: 0.72rem;
-    font-family: 'Space Mono', monospace;
-    background: rgba(0,229,160,0.08);
-    color: var(--accent);
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
-    border: 1px solid rgba(0,229,160,0.2);
-  }
-  .project-img {
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border);
-    display: block;
-    filter: brightness(0.85) saturate(0.9);
-    transition: filter 0.3s;
-  }
-  .project-card:hover .project-img { filter: brightness(1) saturate(1); }
-
-  /* ── FORMATION ── */
-  #formation { background: var(--bg); }
-  .timeline { position: relative; padding-left: 2rem; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-  .timeline-item {
-    position: relative;
-    margin-bottom: 2.5rem;
-    padding-left: 1.5rem;
-  }
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -2.4rem; top: 0.4rem;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid var(--bg);
-    box-shadow: 0 0 8px var(--accent);
-  }
-  .timeline-date {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.3rem;
-  }
-  .timeline-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.2rem;
-  }
-  .timeline-school {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-  }
-  .timeline-note {
-    font-size: 0.82rem;
-    color: var(--accent);
-    font-family: 'Space Mono', monospace;
-  }
-
-  /* ── STAGE ── */
-  #stage { background: var(--bg2); }
-  .stage-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2rem;
-    border-left: 3px solid var(--accent);
-  }
-  .stage-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  .stage-title { font-size: 1rem; font-weight: 700; }
-  .stage-date {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--accent);
-  }
-  .stage-company { font-size: 0.88rem; color: var(--muted); margin-bottom: 1rem; }
-  .stage-list {
-    list-style: none;
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 2;
-  }
-  .stage-list li::before { content: '▹ '; color: var(--accent); }
-
-  /* ── LANGUES ── */
-  #langues { background: var(--bg); }
-  .langs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
-  }
-  .lang-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.2rem 1.5rem;
-    text-align: center;
-    transition: border-color 0.2s;
-  }
-  .lang-card:hover { border-color: var(--accent); }
-  .lang-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; }
-  .lang-level { font-size: 0.78rem; color: var(--accent); font-family: 'Space Mono', monospace; }
-
-  /* ── EXPERIENCE ── */
-  #experience { background: var(--bg2); }
-  .exp-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2rem;
-  }
-  .exp-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
-  .exp-title { font-size: 1rem; font-weight: 700; }
-  .exp-date { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent); }
-  .exp-company { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.8rem; }
-  .exp-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
-
-  /* ── CONTACT ── */
-  #contact {
-    background: var(--bg);
-    text-align: center;
-  }
-  .contact-tagline {
-    font-size: 1rem;
-    color: var(--muted);
-    margin-bottom: 2.5rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--muted);
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .contact-item:hover { color: var(--accent); }
-  .contact-icon { font-size: 1.1rem; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.78rem;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(24px); }
-    to { opacity:1; transform:translateY(0); }
-  }
-  .hero-content > * {
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-  .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
-  .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
-  .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
-  .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
-
-  /* ── RESPONSIVE ── */
-  @media(max-width:600px) {
-    .nav-links { display: none; }
-    .stats { gap: 1rem; }
-    .hero-btns { flex-direction: column; align-items: center; }
-  }
+  @media(max-width:600px){.nav-links{display:none;}.hero-btns{flex-direction:column;align-items:center;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#accueil" class="nav-logo">AS/</a>
   <ul class="nav-links">
-    <li><a href="#about">À propos</a></li>
-    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#about">A propos</a></li>
+    <li><a href="#skills">Competences</a></li>
     <li><a href="#projets">Projets</a></li>
     <li><a href="#formation">Formation</a></li>
-
     <li><a href="#langues">Langues</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="accueil">
-  <div class="hero-grid"></div>
+  <canvas id="heroCanvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <div class="hero-tag">Cybersécurité · Réseaux · Systèmes</div>
+    <div class="hero-tag">Cybersecurite &middot; Reseaux &middot; Systemes</div>
     <h1 class="hero-name">Anis <span>SAFAR</span></h1>
-    <p class="hero-sub">Étudiant en <strong>L3 Informatique — Sorbonne Université</strong></p>
-    <p class="hero-desc">Alternance · Cybersécurité & Réseaux · Sept. 2026 · Île-de-France</p>
+    <p class="hero-sub">Etudiant en <strong>L3 Informatique &mdash; Sorbonne Universite</strong></p>
+    <p class="hero-desc">Alternance &middot; Cybersecurite &amp; Reseaux &middot; Sept. 2026 &middot; Ile-de-France</p>
     <div class="hero-btns">
       <a href="#contact" class="btn btn-primary">Me contacter</a>
       <a href="#projets" class="btn btn-outline">Voir mes projets</a>
@@ -540,266 +139,145 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="container">
     <div class="section-label">// 01</div>
-    <h2 class="section-title">À propos de moi</h2>
-    <p class="about-text">
-      Passionné par la <strong>cybersécurité</strong> et les <strong>systèmes</strong> depuis le lycée,
-      j'ai fait le choix de venir en France pour construire mon parcours à la <strong>Sorbonne</strong>
-      et acquérir les bases solides nécessaires pour me spécialiser dans la sécurité offensive et défensive.
-      Je m'intéresse particulièrement au <strong>pentest</strong>, à <strong>l'audit de sécurité</strong>
-      et à la <strong>réponse à incident</strong>.
-      <br/><br/>
-      Mes projets universitaires m'ont permis de travailler en <strong>C</strong>, <strong>Python</strong>
-      et <strong>Bash</strong>, dans des environnements <strong>Linux</strong>, tout en renforçant ma
-      rigueur et mon autonomie. En parallèle, je m'entraîne sur <strong>TryHackMe</strong> pour progresser
-      en pratique : Nmap, énumération, hacking éthique en environnement contrôlé.
-    </p>
-
+    <h2 class="section-title sr">A propos de moi</h2>
+    <p class="about-text sr">Passionne par la <strong>cybersecurite</strong> et les <strong>systemes</strong> depuis le lycee, j'ai fait le choix de venir en France pour construire mon parcours a la <strong>Sorbonne</strong> et acquerir les bases solides necessaires pour me specialiser dans la securite offensive et defensive. Je m'interesse particulierement au <strong>pentest</strong>, a <strong>l'audit de securite</strong> et a la <strong>reponse a incident</strong>.<br/><br/>Mes projets universitaires m'ont permis de travailler en <strong>C</strong>, <strong>Python</strong> et <strong>Bash</strong>, dans des environnements <strong>Linux</strong>, tout en renforcant ma rigueur et mon autonomie. En parallele, je m'entraine sur <strong>TryHackMe</strong> pour progresser en pratique : Nmap, enumeration, hacking ethique en environnement controle.</p>
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="container">
     <div class="section-label">// 02</div>
-    <h2 class="section-title">Compétences techniques</h2>
+    <h2 class="section-title sr">Competences techniques</h2>
     <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon">🛡️</div>
-        <div class="skill-cat">Réseaux &amp; Sécurité</div>
-        <ul class="skill-list">
-          <li>TCP/IP, UDP, DNS, DHCP, NAT</li>
-          <li>Nmap, TryHackMe</li>
-          <li>Cryptologie</li>
-          <li>Architecture client-serveur</li>
-          <li>Hacking éthique</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">💻</div>
-        <div class="skill-cat">Langages</div>
-        <ul class="skill-list">
-          <li>Python (avancé)</li>
-          <li>C (système, mémoire)</li>
-          <li>Java, OCaml</li>
-          <li>PHP, JavaScript, HTML/CSS</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🖥️</div>
-        <div class="skill-cat">Systèmes</div>
-        <ul class="skill-list">
-          <li>Linux (Kali, Debian)</li>
-          <li>Administration Bash/Shell</li>
-          <li>Gestion mémoire / Valgrind</li>
-          <li>Architecture système</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">📊</div>
-        <div class="skill-cat">Data &amp; IA</div>
-        <ul class="skill-list">
-          <li>Machine Learning</li>
-          <li>Statistiques appliquées</li>
-          <li>NumPy, Pandas, Scikit-learn</li>
-          <li>Algorithmes génétiques</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🛠️</div>
-        <div class="skill-cat">Outils</div>
-        <ul class="skill-list">
-          <li>Git, GitHub</li>
-          <li>React, SQL</li>
-          <li>Anaconda, Eclipse IDE</li>
-          <li>Valgrind, Makefile</li>
-        </ul>
-      </div>
+      <div class="skill-card sr"><div class="skill-icon">&#128737;</div><div class="skill-cat">Reseaux &amp; Securite</div><ul class="skill-list"><li>TCP/IP, UDP, DNS, DHCP, NAT</li><li>Nmap, TryHackMe</li><li>Cryptologie</li><li>Architecture client-serveur</li><li>Hacking ethique</li></ul></div>
+      <div class="skill-card sr"><div class="skill-icon">&#128187;</div><div class="skill-cat">Langages</div><ul class="skill-list"><li>Python (avance)</li><li>C (systeme, memoire)</li><li>Java, OCaml</li><li>PHP, JavaScript, HTML/CSS</li></ul></div>
+      <div class="skill-card sr"><div class="skill-icon">&#128421;</div><div class="skill-cat">Systemes</div><ul class="skill-list"><li>Linux (Kali, Debian)</li><li>Administration Bash/Shell</li><li>Gestion memoire / Valgrind</li><li>Architecture systeme</li></ul></div>
+      <div class="skill-card sr"><div class="skill-icon">&#128202;</div><div class="skill-cat">Data &amp; IA</div><ul class="skill-list"><li>Machine Learning</li><li>Statistiques appliquees</li><li>NumPy, Pandas, Scikit-learn</li><li>Algorithmes genetiques</li></ul></div>
+      <div class="skill-card sr"><div class="skill-icon">&#128736;</div><div class="skill-cat">Outils</div><ul class="skill-list"><li>Git, GitHub</li><li>React, SQL</li><li>Anaconda, Eclipse IDE</li><li>Valgrind, Makefile</li></ul></div>
     </div>
   </div>
 </section>
 
-<!-- PROJETS -->
 <section id="projets">
   <div class="container">
     <div class="section-label">// 03</div>
-    <h2 class="section-title">Projets réalisés</h2>
+    <h2 class="section-title sr">Projets realises</h2>
     <div class="projects-grid">
-
-
-        <p class="project-desc">
-          Développement d'un émulateur de processeur en C avec gestion mémoire par pointeurs
-          et implémentation de tables de hachage pour l'accès optimisé aux instructions.
-          Focus sur l'architecture système et la gestion des allocations dynamiques.
-        </p>
-        <div class="project-techs">
-          <span class="tech-badge">C</span>
-          <span class="tech-badge">Architecture</span>
-          <span class="tech-badge">Mémoire</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        
-        <div class="project-tag">IA &amp; Jeux</div>
-        <div class="project-title">IA Bots — Reversi</div>
-        <p class="project-desc">
-          Développement de bots intelligents pour le jeu Reversi via simulation Monte-Carlo :
-          évaluation de milliers de coups pour optimiser la prise de décision
-          en environnement compétitif et incertain.
-        </p>
-        <div class="project-techs">
-          <span class="tech-badge">Python</span>
-          <span class="tech-badge">Monte-Carlo</span>
-          <span class="tech-badge">Algorithmique IA</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        
-        <div class="project-tag">Systèmes</div>
-        <div class="project-title">Simulation Écosystème Dynamique</div>
-        <p class="project-desc">
-          Modélisation proies/prédateurs avec comportements complexes (déplacement, reproduction,
-          prédation). Implémentation de listes chaînées, tableaux dynamiques et files de priorité.
-          Gestion mémoire rigoureuse validée par Valgrind.
-        </p>
-        <div class="project-techs">
-          <span class="tech-badge">C</span>
-          <span class="tech-badge">Structures de données</span>
-          <span class="tech-badge">Valgrind</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        
-        <div class="project-tag">IA &amp; Robotique</div>
-        <div class="project-title">Multi-Agent Paint World</div>
-        <p class="project-desc">
-          Simulation multi-agents autonomes 2D avec architecture de comportement modulaire
-          (évitement, exploration). Optimisation des comportements par algorithme génétique :
-          sélection, mutation et croisement.
-        </p>
-        <div class="project-techs">
-          <span class="tech-badge">Python</span>
-          <span class="tech-badge">Algo génétique</span>
-          <span class="tech-badge">Robotique autonome</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        
-        <div class="project-tag">Cybersécurité</div>
-        <div class="project-title">Auto-formation — Hacking éthique</div>
-        <p class="project-desc">
-          Entraînement sur TryHackMe : reconnaissance réseau avec Nmap, hacking éthique,
-          énumération et exploitation en environnement contrôlé. Pratique des fondamentaux
-          offensifs (bruteforce, scanning, exploitation).
-        </p>
-        <div class="project-techs">
-          <span class="tech-badge">TryHackMe</span>
-          <span class="tech-badge">Nmap</span>
-          <span class="tech-badge">Linux/Kali</span>
-        </div>
-      </div>
-
+      <div class="project-card sr"><div class="project-tag">Systemes</div><div class="project-title">Emulateur de CPU</div><p class="project-desc">Developpement d'un emulateur de processeur en C avec gestion memoire par pointeurs et implementation de tables de hachage pour l'acces optimise aux instructions. Focus sur l'architecture systeme.</p><div class="project-techs"><span class="tech-badge">C</span><span class="tech-badge">Architecture</span><span class="tech-badge">Memoire</span></div></div>
+      <div class="project-card sr"><div class="project-tag">IA &amp; Jeux</div><div class="project-title">IA Bots &mdash; Reversi</div><p class="project-desc">Developpement de bots intelligents pour le jeu Reversi via simulation Monte-Carlo : evaluation de milliers de coups pour optimiser la prise de decision en environnement competitif.</p><div class="project-techs"><span class="tech-badge">Python</span><span class="tech-badge">Monte-Carlo</span><span class="tech-badge">Algorithmique IA</span></div></div>
+      <div class="project-card sr"><div class="project-tag">Systemes</div><div class="project-title">Simulation Ecosysteme Dynamique</div><p class="project-desc">Modelisation proies/predateurs avec comportements complexes. Implementation de listes chainees, tableaux dynamiques et files de priorite. Gestion memoire validee par Valgrind.</p><div class="project-techs"><span class="tech-badge">C</span><span class="tech-badge">Structures de donnees</span><span class="tech-badge">Valgrind</span></div></div>
+      <div class="project-card sr"><div class="project-tag">IA &amp; Robotique</div><div class="project-title">Multi-Agent Paint World</div><p class="project-desc">Simulation multi-agents autonomes 2D avec architecture de comportement modulaire. Optimisation des comportements par algorithme genetique : selection, mutation et croisement.</p><div class="project-techs"><span class="tech-badge">Python</span><span class="tech-badge">Algo genetique</span><span class="tech-badge">Robotique autonome</span></div></div>
+      <div class="project-card sr"><div class="project-tag">Cybersecurite</div><div class="project-title">Auto-formation &mdash; Hacking ethique</div><p class="project-desc">Entrainement sur TryHackMe : reconnaissance reseau avec Nmap, hacking ethique, enumeration et exploitation en environnement controle. Pratique des fondamentaux offensifs.</p><div class="project-techs"><span class="tech-badge">TryHackMe</span><span class="tech-badge">Nmap</span><span class="tech-badge">Linux/Kali</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- FORMATION -->
 <section id="formation">
   <div class="container">
     <div class="section-label">// 04</div>
-    <h2 class="section-title">Formation</h2>
+    <h2 class="section-title sr">Formation</h2>
     <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="timeline-date">09/2023 — 06/2026</div>
-        <div class="timeline-title">Licence Informatique</div>
-        <div class="timeline-school">Sorbonne Université — Paris, France</div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-date">09/2022 — 06/2023</div>
-        <div class="timeline-title">Classe Préparatoire 1ère Année</div>
-        <div class="timeline-school">École Nationale Polytechnique (ENPC) — Constantine, Algérie</div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-date">09/2021 — 06/2022</div>
-        <div class="timeline-title">Baccalauréat — Spécialité Mathématiques</div>
-        <div class="timeline-school">Bac Mathelem — Tizi-Ouzou, Algérie</div>
-      </div>
-
+      <div class="timeline-item sr"><div class="timeline-date">09/2023 &mdash; 06/2026</div><div class="timeline-title">Licence Informatique</div><div class="timeline-school">Sorbonne Universite &mdash; Paris, France</div></div>
+      <div class="timeline-item sr"><div class="timeline-date">09/2022 &mdash; 06/2023</div><div class="timeline-title">Classe Preparatoire 1ere Annee</div><div class="timeline-school">Ecole Nationale Polytechnique (ENPC) &mdash; Constantine, Algerie</div></div>
+      <div class="timeline-item sr"><div class="timeline-date">09/2021 &mdash; 06/2022</div><div class="timeline-title">Baccalaureat &mdash; Specialite Mathematiques</div><div class="timeline-school">Bac Mathelem &mdash; Tizi-Ouzou, Algerie</div></div>
     </div>
   </div>
 </section>
 
-<!-- STAGE -->
-
-
-<!-- LANGUES -->
 <section id="langues">
   <div class="container">
     <div class="section-label">// 05</div>
-    <h2 class="section-title">Langues</h2>
+    <h2 class="section-title sr">Langues</h2>
     <div class="langs-grid">
-      <div class="lang-card">
-        <div class="lang-name">Français</div>
-        <div class="lang-level">Bilingue</div>
-      </div>
-      <div class="lang-card">
-        <div class="lang-name">Anglais</div>
-        <div class="lang-level">C1 — Avancé</div>
-      </div>
-      <div class="lang-card">
-        <div class="lang-name">Arabe</div>
-        <div class="lang-level">C2 — Expérimenté</div>
-      </div>
-      <div class="lang-card">
-        <div class="lang-name">Kabyle</div>
-        <div class="lang-level">Langue maternelle</div>
-      </div>
+      <div class="lang-card sr"><div class="lang-name">Francais</div><div class="lang-level">Bilingue</div></div>
+      <div class="lang-card sr"><div class="lang-name">Anglais</div><div class="lang-level">C1 &mdash; Avance</div></div>
+      <div class="lang-card sr"><div class="lang-name">Arabe</div><div class="lang-level">C2 &mdash; Experimente</div></div>
+      <div class="lang-card sr"><div class="lang-name">Kabyle</div><div class="lang-level">Langue maternelle</div></div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
     <div class="section-label">// 06</div>
-    <h2 class="section-title">Expérience</h2>
-    <div class="exp-card">
-      <div class="exp-header">
-        <div class="exp-title">Chef de Rang / Barista</div>
-        <div class="exp-date">01/2023 — Actuel</div>
-      </div>
-      <div class="exp-company">Bistro Gisèle — Paris, France</div>
-      <div class="exp-desc">
-        3 ans en parallèle des études : gestion du service, encaissement et travail en équipe
-        sous forte affluence. Cette expérience a renforcé mon autonomie, ma rigueur
-        et ma capacité à gérer plusieurs priorités simultanément.
-      </div>
+    <h2 class="section-title sr">Experience</h2>
+    <div class="exp-card sr">
+      <div class="exp-header"><div class="exp-title">Chef de Rang / Barista</div><div class="exp-date">01/2023 &mdash; Actuel</div></div>
+      <div class="exp-company">Bistro Gisele &mdash; Paris, France</div>
+      <div class="exp-desc">3 ans en parallele des etudes : gestion du service, encaissement et travail en equipe sous forte affluence. Cette experience a renforce mon autonomie, ma rigueur et ma capacite a gerer plusieurs priorites simultanement.</div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <div class="section-label">// 07</div>
-    <h2 class="section-title" style="text-align:center; margin-bottom:1rem;">Disponible dès septembre 2026</h2>
-    <p class="contact-tagline">
-      Je recherche une alternance en cybersécurité ou réseaux.<br/>
-      N'hésitez pas à me contacter !
-    </p>
-    <div class="contact-links">
-      <a href="mailto:anissafar24@gmail.com" class="contact-item"><span class="contact-icon">📧</span> anissafar24@gmail.com</a>
-      
-    </div>
-    <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-      <a href="/cdn-cgi/l/email-protection#92f3fcfbe1e1f3f4f3e0a0
+    <h2 class="section-title sr" style="text-align:center;">Disponible des septembre 2026</h2>
+    <p class="contact-tagline sr">Je recherche une alternance en cybersecurite ou reseaux.<br/>N'hesitez pas a me contacter !</p>
+    <div class="contact-links sr"><a href="mailto:anissafar24@gmail.com" class="contact-item">&#128231; anissafar24@gmail.com</a></div>
+    <div style="display:flex;justify-content:center;" class="sr"><a href="mailto:anissafar24@gmail.com" class="btn btn-primary">M'ecrire un mail</a></div>
+  </div>
+</section>
+
+<footer>&copy; 2026 Anis SAFAR &mdash; Portfolio personnel</footer>
+
+<script>
+// PARTICLES
+var canvas = document.getElementById('heroCanvas');
+var ctx = canvas.getContext('2d');
+function resize(){ canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+resize();
+window.addEventListener('resize', resize);
+var pts = [];
+for(var i=0;i<60;i++){
+  pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+.8,c:Math.random()>.5?'0,229,160':'0,180,255'});
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i=0;i<pts.length;i++){
+    for(var j=i+1;j<pts.length;j++){
+      var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<110){ctx.beginPath();ctx.strokeStyle='rgba(0,229,160,'+(1-d/110)*.12+')';ctx.lineWidth=.7;ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}
+    }
+    ctx.beginPath();ctx.arc(pts[i].x,pts[i].y,pts[i].r,0,Math.PI*2);ctx.fillStyle='rgba('+pts[i].c+',.65)';ctx.fill();
+    pts[i].x+=pts[i].vx;pts[i].y+=pts[i].vy;
+    if(pts[i].x<0||pts[i].x>canvas.width)pts[i].vx*=-1;
+    if(pts[i].y<0||pts[i].y>canvas.height)pts[i].vy*=-1;
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+// SCROLL REVEAL
+var allSr = document.querySelectorAll('.sr');
+allSr.forEach(function(el){ el.classList.add('hidden'); });
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      var siblings = entry.target.parentElement.querySelectorAll('.sr.hidden');
+      siblings.forEach(function(el,i){ setTimeout(function(){ el.classList.remove('hidden'); }, i*90); });
+      entry.target.classList.remove('hidden');
+      obs.unobserve(entry.target);
+    }
+  });
+},{threshold:0.12});
+allSr.forEach(function(el){ obs.observe(el); });
+
+// NAV FLASH
+document.querySelectorAll('a[href^="#"]').forEach(function(link){
+  link.addEventListener('click',function(e){
+    var target=document.querySelector(this.getAttribute('href'));
+    if(!target)return;
+    e.preventDefault();
+    target.scrollIntoView({behavior:'smooth'});
+    target.style.transition='box-shadow .4s ease';
+    target.style.boxShadow='inset 0 0 80px rgba(0,229,160,.05)';
+    setTimeout(function(){ target.style.boxShadow=''; },900);
+  });
+});
+</script>
+</body>
+</html>
