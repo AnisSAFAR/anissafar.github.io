@@ -69,6 +69,8 @@
   .project-desc{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem;}
   .project-techs{display:flex;flex-wrap:wrap;gap:.4rem;}
   .tech-badge{font-size:.72rem;font-family:'Space Mono',monospace;background:rgba(0,229,160,.08);color:var(--accent);padding:.2rem .6rem;border-radius:2px;border:1px solid rgba(0,229,160,.2);}
+  .project-link{display:inline-block;margin-top:1rem;font-size:.78rem;font-family:'Space Mono',monospace;color:var(--accent2);text-decoration:none;border:1px solid rgba(0,180,255,.3);padding:.3rem .9rem;border-radius:2px;transition:all .2s;}
+  .project-link:hover{background:rgba(0,180,255,.08);border-color:var(--accent2);}
 
   #formation{background:var(--bg);}
   .timeline{position:relative;padding-left:2rem;}
@@ -103,10 +105,8 @@
   footer{background:var(--bg);border-top:1px solid var(--border);text-align:center;padding:1.5rem;font-size:.78rem;color:var(--muted);font-family:'Space Mono',monospace;}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-
   .sr{transition:opacity .65s ease,transform .65s ease;}
   .sr.hidden{opacity:0;transform:translateY(28px);}
-
   @media(max-width:600px){.nav-links{display:none;}.hero-btns{flex-direction:column;align-items:center;}}
 </style>
 </head>
@@ -166,11 +166,44 @@
     <div class="section-label">// 03</div>
     <h2 class="section-title sr">Projets realises</h2>
     <div class="projects-grid">
-      <div class="project-card sr"><div class="project-tag">Systemes</div><div class="project-title">Emulateur de CPU</div><p class="project-desc">Developpement d'un emulateur de processeur en C avec gestion memoire par pointeurs et implementation de tables de hachage pour l'acces optimise aux instructions. Focus sur l'architecture systeme.</p><div class="project-techs"><span class="tech-badge">C</span><span class="tech-badge">Architecture</span><span class="tech-badge">Memoire</span></div></div>
-      <div class="project-card sr"><div class="project-tag">IA &amp; Jeux</div><div class="project-title">IA Bots &mdash; Reversi</div><p class="project-desc">Developpement de bots intelligents pour le jeu Reversi via simulation Monte-Carlo : evaluation de milliers de coups pour optimiser la prise de decision en environnement competitif.</p><div class="project-techs"><span class="tech-badge">Python</span><span class="tech-badge">Monte-Carlo</span><span class="tech-badge">Algorithmique IA</span></div></div>
-      <div class="project-card sr"><div class="project-tag">Systemes</div><div class="project-title">Simulation Ecosysteme Dynamique</div><p class="project-desc">Modelisation proies/predateurs avec comportements complexes. Implementation de listes chainees, tableaux dynamiques et files de priorite. Gestion memoire validee par Valgrind.</p><div class="project-techs"><span class="tech-badge">C</span><span class="tech-badge">Structures de donnees</span><span class="tech-badge">Valgrind</span></div></div>
-      <div class="project-card sr"><div class="project-tag">IA &amp; Robotique</div><div class="project-title">Multi-Agent Paint World</div><p class="project-desc">Simulation multi-agents autonomes 2D avec architecture de comportement modulaire. Optimisation des comportements par algorithme genetique : selection, mutation et croisement.</p><div class="project-techs"><span class="tech-badge">Python</span><span class="tech-badge">Algo genetique</span><span class="tech-badge">Robotique autonome</span></div></div>
-      <div class="project-card sr"><div class="project-tag">Cybersecurite</div><div class="project-title">Auto-formation &mdash; Hacking ethique</div><p class="project-desc">Entrainement sur TryHackMe : reconnaissance reseau avec Nmap, hacking ethique, enumeration et exploitation en environnement controle. Pratique des fondamentaux offensifs.</p><div class="project-techs"><span class="tech-badge">TryHackMe</span><span class="tech-badge">Nmap</span><span class="tech-badge">Linux/Kali</span></div></div>
+
+      <div class="project-card sr">
+        <div class="project-tag">Systemes</div>
+        <div class="project-title">Emulateur de CPU</div>
+        <p class="project-desc">Developpement d'un emulateur de processeur en C avec gestion memoire par pointeurs et implementation de tables de hachage pour l'acces optimise aux instructions. Focus sur l'architecture systeme.</p>
+        <div class="project-techs"><span class="tech-badge">C</span><span class="tech-badge">Architecture</span><span class="tech-badge">Memoire</span></div>
+        <a href="https://github.com/AnisSAFAR/emulateur-cpu" target="_blank" class="project-link">&#128279; Voir sur GitHub</a>
+      </div>
+
+      <div class="project-card sr">
+        <div class="project-tag">IA &amp; Jeux</div>
+        <div class="project-title">IA Bots &mdash; Reversi</div>
+        <p class="project-desc">Developpement de bots intelligents pour le jeu Reversi via simulation Monte-Carlo : evaluation de milliers de coups pour optimiser la prise de decision en environnement competitif.</p>
+        <div class="project-techs"><span class="tech-badge">Python</span><span class="tech-badge">Monte-Carlo</span><span class="tech-badge">Algorithmique IA</span></div>
+      </div>
+
+      <div class="project-card sr">
+        <div class="project-tag">Systemes</div>
+        <div class="project-title">Simulation Ecosysteme Dynamique</div>
+        <p class="project-desc">Modelisation proies/predateurs avec comportements complexes. Implementation de listes chainees, tableaux dynamiques et files de priorite. Gestion memoire validee par Valgrind.</p>
+        <div class="project-techs"><span class="tech-badge">C</span><span class="tech-badge">Structures de donnees</span><span class="tech-badge">Valgrind</span></div>
+      </div>
+
+      <div class="project-card sr">
+        <div class="project-tag">IA &amp; Robotique</div>
+        <div class="project-title">Multi-Agent Paint World</div>
+        <p class="project-desc">Simulation multi-agents autonomes 2D avec architecture de comportement modulaire. Optimisation des comportements par algorithme genetique : selection, mutation et croisement.</p>
+        <div class="project-techs"><span class="tech-badge">Python</span><span class="tech-badge">Algo genetique</span><span class="tech-badge">Robotique autonome</span></div>
+        <a href="https://github.com/AnisSAFAR/paint-world" target="_blank" class="project-link">&#128279; Voir sur GitHub</a>
+      </div>
+
+      <div class="project-card sr">
+        <div class="project-tag">Cybersecurite</div>
+        <div class="project-title">Auto-formation &mdash; Hacking ethique</div>
+        <p class="project-desc">Entrainement sur TryHackMe : reconnaissance reseau avec Nmap, hacking ethique, enumeration et exploitation en environnement controle. Pratique des fondamentaux offensifs.</p>
+        <div class="project-techs"><span class="tech-badge">TryHackMe</span><span class="tech-badge">Nmap</span><span class="tech-badge">Linux/Kali</span></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -225,31 +258,54 @@
 <footer>&copy; 2026 Anis SAFAR &mdash; Portfolio personnel</footer>
 
 <script>
-// PARTICLES
-var canvas = document.getElementById('heroCanvas');
-var ctx = canvas.getContext('2d');
-function resize(){ canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
-resize();
-window.addEventListener('resize', resize);
-var pts = [];
-for(var i=0;i<60;i++){
-  pts.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+.8,c:Math.random()>.5?'0,229,160':'0,180,255'});
-}
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for(var i=0;i<pts.length;i++){
-    for(var j=i+1;j<pts.length;j++){
-      var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<110){ctx.beginPath();ctx.strokeStyle='rgba(0,229,160,'+(1-d/110)*.12+')';ctx.lineWidth=.7;ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}
-    }
-    ctx.beginPath();ctx.arc(pts[i].x,pts[i].y,pts[i].r,0,Math.PI*2);ctx.fillStyle='rgba('+pts[i].c+',.65)';ctx.fill();
-    pts[i].x+=pts[i].vx;pts[i].y+=pts[i].vy;
-    if(pts[i].x<0||pts[i].x>canvas.width)pts[i].vx*=-1;
-    if(pts[i].y<0||pts[i].y>canvas.height)pts[i].vy*=-1;
+// PARTICLES — attend que la page soit completement chargee
+window.addEventListener('load', function(){
+  var canvas = document.getElementById('heroCanvas');
+  var ctx = canvas.getContext('2d');
+  var section = document.getElementById('accueil');
+  function resize(){
+    canvas.width = section.offsetWidth;
+    canvas.height = section.offsetHeight;
   }
-  requestAnimationFrame(draw);
-}
-draw();
+  resize();
+  window.addEventListener('resize', resize);
+  var pts = [];
+  for(var i=0;i<70;i++){
+    pts.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      vx: (Math.random()-.5)*.4,
+      vy: (Math.random()-.5)*.4,
+      r: Math.random()*2+.8,
+      c: Math.random()>.5 ? '0,229,160' : '0,180,255'
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<pts.length;i++){
+      for(var j=i+1;j<pts.length;j++){
+        var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();
+          ctx.strokeStyle='rgba(0,229,160,'+(1-d/120)*.2+')';
+          ctx.lineWidth=.8;
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(pts[i].x,pts[i].y,pts[i].r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+pts[i].c+',.85)';
+      ctx.fill();
+      pts[i].x+=pts[i].vx; pts[i].y+=pts[i].vy;
+      if(pts[i].x<0||pts[i].x>canvas.width) pts[i].vx*=-1;
+      if(pts[i].y<0||pts[i].y>canvas.height) pts[i].vy*=-1;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
 
 // SCROLL REVEAL
 var allSr = document.querySelectorAll('.sr');
