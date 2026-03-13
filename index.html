@@ -81,69 +81,102 @@ body::after{
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* ====== BOOT LOADER ====== */
+/* ====== INTRO LOADER ====== */
 #loader{
-  position:fixed;inset:0;
-  z-index:10000;
+  position:fixed;inset:0;z-index:10000;
   background:#000;
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:flex-start;
-  padding:4rem;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+/* deux panneaux qui s'ouvrent */
+#loader-top,#loader-bot{
+  position:absolute;left:0;right:0;
+  height:50%;background:#000;z-index:2;
+  transition:transform 1s cubic-bezier(.77,0,.18,1);
+}
+#loader-top{top:0;}
+#loader-bot{bottom:0;}
+#loader.exit #loader-top{transform:translateY(-100%);}
+#loader.exit #loader-bot{transform:translateY(100%);}
+
+/* contenu central */
+#loader-center{
+  position:relative;z-index:3;
+  text-align:center;
+  pointer-events:none;
+}
+#loader-pre{
   font-family:'JetBrains Mono',monospace;
-  font-size:clamp(.75rem,1.2vw,.95rem);
-}
-#loader.exit{
-  animation:loaderExit .8s cubic-bezier(.77,0,.18,1) forwards;
-}
-@keyframes loaderExit{
-  0%{transform:scaleY(1);opacity:1;}
-  60%{transform:scaleY(1);opacity:1;}
-  100%{transform:scaleY(0);opacity:0;transform-origin:top;}
-}
-.loader-line{
-  color:var(--accent);
-  margin-bottom:.4rem;
+  font-size:.72rem;color:var(--muted);
+  letter-spacing:.3em;text-transform:uppercase;
   opacity:0;
-  transform:translateX(-12px);
-  animation:lineIn .25s ease forwards;
-  white-space:nowrap;
+  animation:ldFadeUp .5s ease .2s forwards;
+  margin-bottom:1.2rem;
 }
-.loader-line.dim{color:var(--muted);}
-.loader-line.red{color:#ff5555;}
-.loader-line.white{color:#f8f8f2;}
-.loader-line span{color:var(--accent2);}
-@keyframes lineIn{
-  to{opacity:1;transform:translateX(0);}
+#loader-name{
+  font-family:'Oxanium',sans-serif;
+  font-size:clamp(3rem,10vw,7rem);
+  font-weight:800;
+  line-height:1;
+  overflow:hidden;
+  display:flex;gap:.15em;justify-content:center;
 }
-#loader-bar-wrap{
-  margin-top:1.5rem;
+.ld-char{
+  display:inline-block;
   opacity:0;
-  animation:lineIn .25s ease 1.4s forwards;
+  transform:translateY(100%);
+  animation:ldCharIn .5s cubic-bezier(.16,1,.3,1) forwards;
 }
-#loader-bar-label{color:var(--muted);font-size:.75rem;margin-bottom:.4rem;}
-#loader-bar-track{
-  width:min(400px,60vw);height:3px;
+#loader-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;
+  letter-spacing:.25em;
+  color:var(--muted);
+  margin-top:1.2rem;
+  opacity:0;
+  animation:ldFadeUp .5s ease 1.2s forwards;
+}
+#loader-line-wrap{
+  margin-top:2rem;
+  opacity:0;
+  animation:ldFadeUp .4s ease 1.4s forwards;
+}
+#loader-progress{
+  width:min(280px,50vw);height:1px;
   background:rgba(255,255,255,.1);
-  border-radius:2px;overflow:hidden;
+  margin:0 auto;overflow:hidden;
+  position:relative;
 }
-#loader-bar-fill{
+#loader-progress::after{
+  content:'';position:absolute;left:-100%;top:0;bottom:0;
+  width:100%;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+  animation:ldScan 1s ease 1.5s forwards;
+}
+@keyframes ldScan{
+  0%{left:-100%;}
+  100%{left:100%;}
+}
+#loader-progress-fill{
   height:100%;width:0;
   background:linear-gradient(90deg,var(--accent),var(--accent2));
-  animation:barFill .9s ease 1.5s forwards;
+  animation:ldFill 1s ease 1.5s forwards;
 }
-@keyframes barFill{to{width:100%;}}
-#loader-granted{
-  margin-top:1.2rem;
-  color:var(--accent);
-  font-size:1.2rem;
-  font-weight:700;
-  letter-spacing:.2em;
+@keyframes ldFill{to{width:100%;}}
+#loader-pct{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:var(--muted);
+  text-align:right;margin-top:.4rem;
   opacity:0;
-  animation:grantedIn .4s ease 2.5s forwards;
+  animation:ldFadeUp .3s ease 1.5s forwards;
 }
-@keyframes grantedIn{
-  0%{opacity:0;filter:blur(8px);}
-  100%{opacity:1;filter:blur(0);}
+
+@keyframes ldFadeUp{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes ldCharIn{
+  to{opacity:1;transform:translateY(0);}
 }
 
 /* ====== GRID BACKGROUND ====== */
@@ -228,18 +261,17 @@ nav{
 
 .hero-name{
   font-family:'Oxanium',sans-serif;
-  font-size:clamp(3.5rem,9vw,6.5rem);
+  font-size:clamp(3rem,10vw,7rem);
   font-weight:800;
   line-height:.95;
   margin-bottom:1.5rem;
-  letter-spacing:-.02em;
+  letter-spacing:.05em;
   animation:fadeUpIn .8s ease .35s both;
   position:relative;
 }
 .hero-name .first{color:var(--text);}
 .hero-name .last{
-  color:#ffffff;
-  text-shadow:0 0 30px rgba(255,255,255,.25),0 0 80px rgba(0,180,255,.2);
+  color:#4db8ff;
 }
 
 /* GLITCH */
@@ -248,16 +280,17 @@ nav{
   content:attr(data-text);
   position:absolute;top:0;left:0;
   width:100%;height:100%;
+  color:#4db8ff;
 }
 .glitch::before{
-  color:#ff5555;
   animation:glitch1 4s infinite;
-  clip-path:polygon(0 20%,100% 20%,100% 35%,0 35%);
+  clip-path:polygon(0 18%,100% 18%,100% 36%,0 36%);
+  opacity:.85;
 }
 .glitch::after{
-  color:var(--accent2);
   animation:glitch2 4s infinite;
-  clip-path:polygon(0 65%,100% 65%,100% 80%,0 80%);
+  clip-path:polygon(0 62%,100% 62%,100% 80%,0 80%);
+  opacity:.85;
 }
 @keyframes glitch1{
   0%,94%,100%{transform:translate(0);}
@@ -617,10 +650,12 @@ section{padding:6rem 2rem;position:relative;}
 .lang-card{
   background:var(--bg3);
   border:1px solid var(--border);
-  border-radius:3px;padding:1.4rem 1.8rem;
+  border-radius:3px;
+  padding:1.4rem 1.8rem;
   text-align:center;
-  transition:border-color .25s,transform .25s,box-shadow .25s;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
   position:relative;overflow:hidden;
+  cursor:default;
 }
 .lang-card::after{
   content:'';position:absolute;bottom:0;left:0;right:0;
@@ -630,15 +665,42 @@ section{padding:6rem 2rem;position:relative;}
 }
 .lang-card:hover{
   border-color:rgba(0,229,160,.35);
-  transform:translateY(-4px);
+  transform:translateY(-6px);
   box-shadow:var(--glow);
 }
 .lang-card:hover::after{transform:scaleX(1);}
 .lang-name{
   font-family:'Oxanium',sans-serif;
   font-weight:700;font-size:1rem;margin-bottom:.35rem;
+  position:relative;z-index:2;transition:color .3s;
 }
-.lang-level{font-size:.75rem;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;}
+.lang-card:hover .lang-name{color:var(--accent);}
+.lang-level{
+  font-size:.75rem;color:var(--accent);
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:.06em;
+  position:relative;z-index:2;
+}
+/* FLAG */
+.lang-flag{
+  position:absolute;
+  bottom:-100%;left:0;right:0;
+  height:100%;
+  transition:bottom .4s cubic-bezier(.16,1,.3,1);
+  overflow:hidden;
+  opacity:.18;
+}
+.lang-card:hover .lang-flag{bottom:0;}
+.lang-flag svg{width:100%;height:100%;object-fit:cover;}
+/* flag wave animation */
+@keyframes flagWave{
+  0%,100%{transform:skewX(0deg) scaleX(1);}
+  25%{transform:skewX(-2deg) scaleX(.98);}
+  75%{transform:skewX(2deg) scaleX(.98);}
+}
+.lang-card:hover .lang-flag svg{
+  animation:flagWave 2s ease-in-out infinite;
+}
 
 /* ====== EXPERIENCE ====== */
 #experience{background:var(--bg);}
@@ -752,17 +814,28 @@ footer{
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="loader-line dim" style="animation-delay:.05s">// SAFAR_PORTFOLIO_v2.0 — initializing...</div>
-  <div class="loader-line" style="animation-delay:.3s">[ <span>OK</span> ] Chargement des modules système</div>
-  <div class="loader-line" style="animation-delay:.55s">[ <span>OK</span> ] Connexion au réseau sécurisé</div>
-  <div class="loader-line" style="animation-delay:.8s">[ <span>OK</span> ] Authentification utilisateur</div>
-  <div class="loader-line" style="animation-delay:1.05s">[ <span>OK</span> ] Compilation des projets : 4/4</div>
-  <div class="loader-line dim" style="animation-delay:1.3s">Bienvenue, <span>recruteur</span>.</div>
-  <div id="loader-bar-wrap">
-    <div id="loader-bar-label">CHARGEMENT...</div>
-    <div id="loader-bar-track"><div id="loader-bar-fill"></div></div>
+  <div id="loader-top"></div>
+  <div id="loader-bot"></div>
+  <div id="loader-center">
+    <div id="loader-pre">Portfolio</div>
+    <div id="loader-name">
+      <span class="ld-char" style="animation-delay:.4s;color:#4db8ff">A</span>
+      <span class="ld-char" style="animation-delay:.48s;color:#4db8ff">N</span>
+      <span class="ld-char" style="animation-delay:.56s;color:#4db8ff">I</span>
+      <span class="ld-char" style="animation-delay:.64s;color:#4db8ff">S</span>
+      <span class="ld-char" style="animation-delay:.78s;color:transparent"> </span>
+      <span class="ld-char" style="animation-delay:.88s;color:#e8eaf6">S</span>
+      <span class="ld-char" style="animation-delay:.96s;color:#e8eaf6">A</span>
+      <span class="ld-char" style="animation-delay:1.04s;color:#e8eaf6">F</span>
+      <span class="ld-char" style="animation-delay:1.12s;color:#e8eaf6">A</span>
+      <span class="ld-char" style="animation-delay:1.20s;color:#e8eaf6">R</span>
+    </div>
+    <div id="loader-sub">Cybersécurité &amp; Réseaux · Sorbonne Université</div>
+    <div id="loader-line-wrap">
+      <div id="loader-progress"><div id="loader-progress-fill"></div></div>
+      <div id="loader-pct" id="loader-pct">100%</div>
+    </div>
   </div>
-  <div id="loader-granted">// ACCÈS AUTORISÉ</div>
 </div>
 
 <!-- NAV -->
@@ -914,7 +987,7 @@ footer{
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
         <div class="project-tag">Systèmes</div>
-        <div class="project-title">Émulateur de CPU</div>
+        <div class="project-title">Émulateur de 🖥️ Émulateur de CPU</div>
         <p class="project-desc">Émulateur de processeur en C avec gestion mémoire par pointeurs et tables de hachage pour l'accès optimisé aux instructions. Architecture système complète.</p>
         <div class="project-techs">
           <span class="tech-badge">C</span>
@@ -928,7 +1001,7 @@ footer{
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
         <div class="project-tag">IA & Jeux</div>
-        <div class="project-title">IA Bots — Reversi</div>
+        <div class="project-title">♟️ IA Bots — Reversi</div>
         <p class="project-desc">Bots intelligents pour Reversi via simulation Monte-Carlo : évaluation de milliers de coups pour optimiser la prise de décision en environnement compétitif.</p>
         <div class="project-techs">
           <span class="tech-badge">Python</span>
@@ -941,7 +1014,7 @@ footer{
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
         <div class="project-tag">Systèmes</div>
-        <div class="project-title">Simulation Écosystème</div>
+        <div class="project-title">🌿 Simulation Écosystème</div>
         <p class="project-desc">Modélisation proies/prédateurs avec comportements complexes. Listes chaînées, tableaux dynamiques et files de priorité. Mémoire validée par Valgrind.</p>
         <div class="project-techs">
           <span class="tech-badge">C</span>
@@ -954,7 +1027,7 @@ footer{
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
         <div class="project-tag">IA & Robotique</div>
-        <div class="project-title">Multi-Agent Paint World</div>
+        <div class="project-title">🎨 Multi-Agent Paint World</div>
         <p class="project-desc">Simulation multi-agents autonomes 2D. Architecture modulaire optimisée par algorithme génétique : sélection, mutation et croisement.</p>
         <div class="project-techs">
           <span class="tech-badge">Python</span>
@@ -968,7 +1041,7 @@ footer{
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
         <div class="project-tag">Cybersécurité</div>
-        <div class="project-title">Hacking Éthique</div>
+        <div class="project-title">🔐 Hacking Éthique</div>
         <p class="project-desc">Auto-formation sur TryHackMe : reconnaissance réseau Nmap, énumération et exploitation en environnement contrôlé. Pratique des fondamentaux offensifs.</p>
         <div class="project-techs">
           <span class="tech-badge">TryHackMe</span>
@@ -1018,19 +1091,82 @@ footer{
     </div>
     <h2 class="section-title reveal from-left"><em>Langues</em></h2>
     <div class="langs-grid">
+
       <div class="lang-card reveal from-scale" style="transition-delay:.0s">
+        <div class="lang-flag">
+          <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="1" height="2" x="0" fill="#002395"/>
+            <rect width="1" height="2" x="1" fill="#fff"/>
+            <rect width="1" height="2" x="2" fill="#ED2939"/>
+          </svg>
+        </div>
         <div class="lang-name">Français</div>
         <div class="lang-level">Bilingue</div>
       </div>
+
       <div class="lang-card reveal from-scale" style="transition-delay:.1s">
+        <div class="lang-flag">
+          <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="60" height="30" fill="#012169"/>
+            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
+            <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
+            <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>
+          </svg>
+        </div>
         <div class="lang-name">Anglais</div>
         <div class="lang-level">C1 — Avancé</div>
       </div>
+
       <div class="lang-card reveal from-scale" style="transition-delay:.2s">
+        <div class="lang-flag">
+          <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <!-- Fond blanc (côté droit) -->
+            <rect width="900" height="600" fill="#ffffff"/>
+            <!-- Moitié gauche verte -->
+            <rect width="450" height="600" fill="#006233"/>
+            <!-- Croissant rouge : grand cercle rouge centré à gauche du milieu -->
+            <circle cx="430" cy="300" r="165" fill="#D21034"/>
+            <!-- Cercle blanc qui "creuse" le croissant vers la droite -->
+            <circle cx="498" cy="300" r="133" fill="#ffffff"/>
+            <!-- Étoile rouge à 5 branches, positionnée dans le croissant -->
+            <!-- Étoile centrée à x=540, y=300, rayon externe 55, interne 22, rotation -18° -->
+            <polygon fill="#D21034" points="
+              540,245
+              554,290
+              600,290
+              564,317
+              577,362
+              540,336
+              503,362
+              516,317
+              480,290
+              526,290
+            "/>
+          </svg>
+        </div>
         <div class="lang-name">Arabe</div>
         <div class="lang-level">C2 — Expérimenté</div>
       </div>
+
       <div class="lang-card reveal from-scale" style="transition-delay:.3s">
+        <div class="lang-flag">
+          <svg viewBox="-100 -67 1100 734" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <!-- 3 bandes : bleu / vert / jaune -->
+            <rect x="0" y="0"   width="900" height="200" fill="#009FCA"/>
+            <rect x="0" y="200" width="900" height="200" fill="#6AB027"/>
+            <rect x="0" y="400" width="900" height="200" fill="#FCD116"/>
+            <!-- BARRE VERTICALE | -->
+            <line x1="450" y1="70" x2="450" y2="530"
+                  stroke="#CC0000" stroke-width="52" stroke-linecap="round"/>
+            <!-- COURBE HAUT ouverte vers le haut -->
+            <path d="M 155,82 Q 450,235 745,82"
+                  stroke="#CC0000" stroke-width="52" fill="none" stroke-linecap="round"/>
+            <!-- COURBE BAS ouverte vers le bas -->
+            <path d="M 210,518 Q 450,370 690,518"
+                  stroke="#CC0000" stroke-width="52" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div class="lang-name">Kabyle</div>
         <div class="lang-level">Langue maternelle</div>
       </div>
@@ -1084,12 +1220,20 @@ footer{
 
 <script>
 /* ====== LOADER ====== */
+/* LOADER DISMISS */
 window.addEventListener('load',function(){
+  var pct = document.getElementById('loader-pct');
+  var n=0;
+  var iv=setInterval(function(){
+    n=Math.min(n+Math.floor(Math.random()*8+3),100);
+    if(pct) pct.textContent=n+'%';
+    if(n>=100) clearInterval(iv);
+  },30);
   setTimeout(function(){
     var loader = document.getElementById('loader');
     loader.classList.add('exit');
-    setTimeout(function(){ loader.style.display='none'; }, 800);
-  }, 3000);
+    setTimeout(function(){ loader.style.display='none'; }, 1100);
+  }, 2800);
 });
 
 /* ====== CURSOR ====== */
