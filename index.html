@@ -271,6 +271,8 @@ nav{
 .btn-primary:hover{background:#00ffb8;box-shadow:0 0 35px rgba(0,229,160,.5),0 0 70px rgba(0,229,160,.2);transform:translateY(-2px);}
 .btn-ghost{border:1px solid rgba(0,229,160,.35);color:var(--text);background:rgba(0,229,160,.04);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,.08);transform:translateY(-2px);box-shadow:var(--glow);}
+.btn-cv{border:1px solid rgba(0,180,255,.35);color:var(--accent2);background:rgba(0,180,255,.04);}
+.btn-cv:hover{border-color:var(--accent2);color:#fff;background:rgba(0,180,255,.12);transform:translateY(-2px);box-shadow:var(--glow2);}
 .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:fadeUpIn .8s ease 1.2s both;}
 .scroll-hint-text{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
 .scroll-hint-line{width:1px;height:40px;background:linear-gradient(var(--accent),transparent);animation:scrollLine 2s ease infinite;}
@@ -446,6 +448,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
     <div class="hero-btns">
       <a href="#contact" class="btn btn-primary">Me contacter</a>
       <a href="#projets" class="btn btn-ghost">Voir mes projets</a>
+      <a href="./cv_alt_vthm.pdf" download class="btn btn-cv">↓ Télécharger mon CV</a>
     </div>
   </div>
   <div class="scroll-hint">
@@ -562,7 +565,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
     <h2 class="section-title reveal from-left">Projets <em>réalisés</em></h2>
     <div class="projects-grid">
 
-      <!-- VIGENERE — mis en avant en PREMIER (cyber) -->
       <div class="project-card reveal from-bottom" style="transition-delay:.0s">
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
@@ -706,11 +708,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
       onmouseenter="this.style.borderColor='rgba(0,229,160,.35)';this.style.boxShadow='0 0 40px rgba(0,0,0,.4)'"
       onmouseleave="this.style.borderColor='rgba(0,229,160,0.12)';this.style.boxShadow='none'"
       >
-        <!-- Watermark number -->
         <div style="position:absolute;right:1.5rem;top:1rem;font-family:'Oxanium',sans-serif;font-size:4rem;font-weight:800;color:rgba(0,229,160,.05);line-height:1;pointer-events:none;">01</div>
-        <!-- Top gradient bar -->
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff0000,#c11c1c,#ff4444);border-radius:3px 3px 0 0;"></div>
-        <!-- TryHackMe Logo SVG -->
         <div style="flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
             <rect width="100" height="100" rx="18" fill="#1a1a2e"/>
@@ -719,7 +718,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
             <text x="50" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#e8eaf6" letter-spacing="1">TryHackMe</text>
           </svg>
         </div>
-        <!-- Content -->
         <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap;">
             <span style="font-family:'Oxanium',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">Jr Penetration Tester</span>
