@@ -271,8 +271,6 @@ nav{
 .btn-primary:hover{background:#00ffb8;box-shadow:0 0 35px rgba(0,229,160,.5),0 0 70px rgba(0,229,160,.2);transform:translateY(-2px);}
 .btn-ghost{border:1px solid rgba(0,229,160,.35);color:var(--text);background:rgba(0,229,160,.04);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,.08);transform:translateY(-2px);box-shadow:var(--glow);}
-.btn-cv{border:1px solid rgba(0,180,255,.35);color:var(--accent2);background:rgba(0,180,255,.04);}
-.btn-cv:hover{border-color:var(--accent2);color:#fff;background:rgba(0,180,255,.12);transform:translateY(-2px);box-shadow:var(--glow2);}
 .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:fadeUpIn .8s ease 1.2s both;}
 .scroll-hint-text{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
 .scroll-hint-line{width:1px;height:40px;background:linear-gradient(var(--accent),transparent);animation:scrollLine 2s ease infinite;}
@@ -438,17 +436,16 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
   <div class="hero-inner">
     <div class="hero-tag">
       <span class="hero-tag-dot"></span>
-      Admis M1 SSI &middot; Alternance Sept. 2026 &middot; Île-de-France
+      Admis Master SSI (MSI) &middot; Alternance Sept. 2026 &middot; Île-de-France
     </div>
     <h1 class="hero-name">
       <span class="first">Anis </span><span class="last glitch" data-text="SAFAR">SAFAR</span>
     </h1>
-    <p class="hero-sub">Admis en <strong>Master 1 SSI — Sécurité des Systèmes d'Information</strong><br/><span style="font-size:.95rem;color:var(--muted)">Sorbonne Université · Alternance dès sept. 2026</span></p>
+    <p class="hero-sub">Admis en <strong>Master SSI (MSI) — Sécurité des Systèmes d'Information</strong><br/><span style="font-size:.95rem;color:var(--muted)">Sorbonne Université · Alternance dès sept. 2026</span></p>
     <p class="hero-typewriter" id="typewriter"></p>
     <div class="hero-btns">
       <a href="#contact" class="btn btn-primary">Me contacter</a>
       <a href="#projets" class="btn btn-ghost">Voir mes projets</a>
-      <a href="./cv_alt_vthm.pdf" download class="btn btn-cv">↓ Télécharger mon CV</a>
     </div>
   </div>
   <div class="scroll-hint">
@@ -466,8 +463,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
     <h2 class="section-title reveal from-left">A propos <em>de moi</em></h2>
     <div class="about-grid">
       <p class="about-text reveal from-left" style="transition-delay:.1s">
-        Passionné par la <strong>cybersécurité</strong> depuis le lycée, j'ai obtenu ma <strong>Licence Informatique à Sorbonne Université</strong> et viens d'être admis en <strong>Master 1 SSI</strong> (Sécurité des Systèmes d'Information). Je suis activement à la recherche d'une entreprise d'accueil pour mon <strong>alternance dès septembre 2026</strong>, avec pour ambition de me spécialiser en sécurité offensive et défensive : <strong>pentest</strong>, <strong>audit de sécurité</strong> et <strong>réponse à incident</strong>.<br/><br/>
-        Mes projets en <strong>C</strong>, <strong>Python</strong> et <strong>Bash</strong> sous <strong>Linux</strong> m'ont permis de bâtir des bases système solides. En parallèle, je m'entraîne sur <strong>TryHackMe</strong> pour progresser en pratique offensive.
+        Passionné par la <strong>cybersécurité</strong> depuis le lycée, j'ai obtenu ma <strong>Licence Informatique</strong> à <strong>Sorbonne Université</strong> et suis admis en <strong>Master SSI (MSI)</strong>. Je cherche une entreprise d'accueil pour mon <strong>alternance dès septembre 2026</strong>, avec pour ambition de progresser rapidement sur des missions de <strong>pentest</strong>, <strong>audit</strong>, <strong>SOC</strong> ou <strong>ingénierie sécurité</strong>.<br/><br/>
+        J'ai construit des bases solides en <strong>C</strong>, <strong>Python</strong> et <strong>cryptanalyse</strong> à travers mes projets académiques, et je pratique régulièrement sur <strong>TryHackMe</strong>.
       </p>
       <div class="about-stats reveal from-right" style="transition-delay:.2s">
         <div class="stat-card">
@@ -512,13 +509,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
       </div>
       <div class="skill-card reveal from-bottom" style="transition-delay:.1s">
         <div class="skill-icon">💻</div>
-        <div class="skill-cat">Langages</div>
+        <div class="skill-cat">Développement</div>
         <ul class="skill-list">
           <li>Python (avancé)</li>
           <li>C (système, mémoire)</li>
           <li>Java — Programmation orientée objet avancée</li>
           <li>OCaml — Programmation fonctionnelle</li>
           <li>PHP, JavaScript, HTML/CSS</li>
+          <li>SQL</li>
         </ul>
       </div>
       <div class="skill-card reveal from-bottom" style="transition-delay:.2s">
@@ -529,6 +527,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
           <li>Administration Bash/Shell</li>
           <li>Gestion mémoire / Valgrind</li>
           <li>Architecture système</li>
+          <li>Programmation concurrente</li>
         </ul>
       </div>
       <div class="skill-card reveal from-bottom" style="transition-delay:.3s">
@@ -546,9 +545,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
         <div class="skill-icon">🔧</div>
         <div class="skill-cat">Outils</div>
         <ul class="skill-list">
+          <li>Nmap, Wireshark, Gobuster</li>
           <li>Git, GitHub</li>
-          <li>React, SQL</li>
-          <li>Anaconda, Eclipse IDE</li>
+          <li>React, Anaconda, Eclipse IDE</li>
           <li>Valgrind, Makefile</li>
         </ul>
       </div>
@@ -565,6 +564,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
     <h2 class="section-title reveal from-left">Projets <em>réalisés</em></h2>
     <div class="projects-grid">
 
+      <!-- VIGENERE — mis en avant en PREMIER (cyber) -->
       <div class="project-card reveal from-bottom" style="transition-delay:.0s">
         <div class="project-card-shine"></div>
         <div class="project-corner"></div>
@@ -663,7 +663,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
     <div class="timeline">
       <div class="timeline-item reveal from-left" style="transition-delay:.0s">
         <div class="timeline-date" style="color:var(--accent2)">09/2026 — En cours</div>
-        <div class="timeline-title" style="color:var(--accent)">Master 1 SSI — Sécurité des Systèmes d'Information <span style="font-size:.75rem;color:var(--accent);border:1px solid rgba(0,229,160,.35);padding:.1rem .5rem;border-radius:2px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;vertical-align:middle;margin-left:.5rem">ALTERNANCE</span></div>
+        <div class="timeline-title" style="color:var(--accent)">Master SSI (MSI) — Sécurité des Systèmes d'Information <span style="font-size:.75rem;color:var(--accent);border:1px solid rgba(0,229,160,.35);padding:.1rem .5rem;border-radius:2px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;vertical-align:middle;margin-left:.5rem">ALTERNANCE</span></div>
         <div class="timeline-school">Sorbonne Université — Paris, France</div>
       </div>
       <div class="timeline-item reveal from-left" style="transition-delay:.15s">
@@ -676,11 +676,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
         <div class="timeline-title">Classe Préparatoire 1ère Année</div>
         <div class="timeline-school">École Nationale Polytechnique (ENPC) — Constantine, Algérie</div>
       </div>
-      <div class="timeline-item reveal from-left" style="transition-delay:.6s">
-        <div class="timeline-date">09/2021 — 06/2022</div>
-        <div class="timeline-title">Baccalauréat — Spécialité Mathématiques</div>
-        <div class="timeline-school">Bac Mathelem — Tizi-Ouzou, Algérie</div>
-      </div>
+
     </div>
   </div>
 
@@ -708,8 +704,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
       onmouseenter="this.style.borderColor='rgba(0,229,160,.35)';this.style.boxShadow='0 0 40px rgba(0,0,0,.4)'"
       onmouseleave="this.style.borderColor='rgba(0,229,160,0.12)';this.style.boxShadow='none'"
       >
+        <!-- Watermark number -->
         <div style="position:absolute;right:1.5rem;top:1rem;font-family:'Oxanium',sans-serif;font-size:4rem;font-weight:800;color:rgba(0,229,160,.05);line-height:1;pointer-events:none;">01</div>
+        <!-- Top gradient bar -->
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff0000,#c11c1c,#ff4444);border-radius:3px 3px 0 0;"></div>
+        <!-- TryHackMe Logo SVG -->
         <div style="flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
             <rect width="100" height="100" rx="18" fill="#1a1a2e"/>
@@ -718,6 +717,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
             <text x="50" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#e8eaf6" letter-spacing="1">TryHackMe</text>
           </svg>
         </div>
+        <!-- Content -->
         <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap;">
             <span style="font-family:'Oxanium',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">Jr Penetration Tester</span>
@@ -912,7 +912,7 @@ window.addEventListener('load',function(){
   draw();
 });
 
-var phrases=['Master 1 SSI — Sorbonne','Pentest & Audit de Sécurité','Alternance Sept. 2026','Cybersécurité & Réseaux'];
+var phrases=['Master SSI (MSI) — Sorbonne','Pentest & Audit de Sécurité','Alternance Sept. 2026','Cybersécurité & Réseaux'];
 var pi=0,ci=0,deleting=false;
 var tw=document.getElementById('typewriter');
 function type(){
