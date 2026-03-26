@@ -18,6 +18,8 @@
   --border:rgba(0,229,160,0.12);
   --glow:0 0 20px rgba(0,229,160,0.3);
   --glow2:0 0 20px rgba(0,180,255,0.3);
+  --accent3:#7b2fff;
+  --accent4:#ff6600;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -296,23 +298,132 @@ section{padding:6rem 2rem;position:relative;}
 .stat-label{font-size:.8rem;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;}
 @media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
 #skills{background:var(--bg);}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
-.skill-card{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:1.8rem;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden;}
+/* ── SKILLS REDESIGN ── */
+.skills-container{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.skill-row{
+  background:var(--bg3);
+  display:grid;
+  grid-template-columns:220px 1fr;
+  align-items:center;
+  padding:0;
+  transition:background .25s;
+  position:relative;
+  overflow:hidden;
+}
+.skill-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .4s ease;
+}
+.skill-row:hover::before{transform:scaleY(1);}
+.skill-row:hover{background:var(--bg);}
+.skill-row:nth-child(1)::before{background:var(--accent3);}
+.skill-row:nth-child(2)::before{background:var(--accent);}
+.skill-row:nth-child(3)::before{background:var(--accent2);}
+.skill-row:nth-child(4)::before{background:var(--accent);}
+.skill-row:nth-child(5)::before{background:var(--accent2);}
+.skill-row:nth-child(6)::before{background:rgba(255,102,0,.9);}
+.skill-row:nth-child(7)::before{background:rgba(0,180,255,.6);}
+.skill-row-left{
+  padding:1.6rem 2rem;
+  border-right:1px solid var(--border);
+  display:flex;align-items:center;gap:.8rem;
+}
+.skill-row-icon{font-size:1.2rem;}
+.skill-row-cat{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+}
+.skill-row:nth-child(1) .skill-row-cat{color:var(--accent3);}
+.skill-row:nth-child(2) .skill-row-cat{color:var(--accent);}
+.skill-row:nth-child(3) .skill-row-cat{color:var(--accent2);}
+.skill-row:nth-child(4) .skill-row-cat{color:var(--accent);}
+.skill-row:nth-child(5) .skill-row-cat{color:var(--accent2);}
+.skill-row:nth-child(6) .skill-row-cat{color:rgba(255,102,0,.9);}
+.skill-row:nth-child(7) .skill-row-cat{color:rgba(0,180,255,.8);}
+.skill-row-tags{
+  padding:1.6rem 2rem;
+  display:flex;flex-wrap:wrap;gap:.5rem;
+}
+.skill-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;
+  padding:.35rem .9rem;
+  border-radius:100px;
+  border:1px solid;
+  transition:all .2s;
+  cursor:default;
+  white-space:nowrap;
+}
+.skill-row:nth-child(1) .skill-pill{color:rgba(123,47,255,.9);border-color:rgba(123,47,255,.25);background:rgba(123,47,255,.06);}
+.skill-row:nth-child(1) .skill-pill:hover{background:rgba(123,47,255,.15);color:var(--accent3);border-color:rgba(123,47,255,.5);}
+.skill-row:nth-child(2) .skill-pill{color:rgba(0,229,160,.9);border-color:rgba(0,229,160,.2);background:rgba(0,229,160,.05);}
+.skill-row:nth-child(2) .skill-pill:hover{background:rgba(0,229,160,.12);color:var(--accent);}
+.skill-row:nth-child(3) .skill-pill{color:rgba(0,180,255,.9);border-color:rgba(0,180,255,.22);background:rgba(0,180,255,.05);}
+.skill-row:nth-child(3) .skill-pill:hover{background:rgba(0,180,255,.12);color:var(--accent2);}
+.skill-row:nth-child(4) .skill-pill{color:rgba(0,229,160,.9);border-color:rgba(0,229,160,.2);background:rgba(0,229,160,.05);}
+.skill-row:nth-child(4) .skill-pill:hover{background:rgba(0,229,160,.12);color:var(--accent);}
+.skill-row:nth-child(5) .skill-pill{color:rgba(0,180,255,.9);border-color:rgba(0,180,255,.22);background:rgba(0,180,255,.05);}
+.skill-row:nth-child(5) .skill-pill:hover{background:rgba(0,180,255,.12);color:var(--accent2);}
+.skill-row:nth-child(6) .skill-pill{color:rgba(255,102,0,.9);border-color:rgba(255,102,0,.22);background:rgba(255,102,0,.05);}
+.skill-row:nth-child(6) .skill-pill:hover{background:rgba(255,102,0,.12);color:rgba(255,102,0,1);}
+.skill-row:nth-child(7) .skill-pill{color:rgba(0,180,255,.9);border-color:rgba(0,180,255,.22);background:rgba(0,180,255,.05);}
+.skill-row:nth-child(7) .skill-pill:hover{background:rgba(0,180,255,.12);color:var(--accent2);}
+@media(max-width:640px){
+  .skill-row{grid-template-columns:1fr;}
+  .skill-row-left{border-right:none;border-bottom:1px solid var(--border);padding:1rem 1.5rem;}
+  .skill-row-tags{padding:1rem 1.5rem;}
+}
+.skill-card{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:1.8rem;transition:border-color .3s,transform .3s,box-shadow .3s;position:relative;overflow:hidden;}
 .skill-card::after{content:'';position:absolute;inset:0;opacity:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,160,.06),transparent 60%);transition:opacity .3s;pointer-events:none;}
-.skill-card:hover{border-color:rgba(0,229,160,.4);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4),var(--glow);}
+.skill-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.5);}
 .skill-card:hover::after{opacity:1;}
+/* top accent bar per card */
+.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.skill-card:hover::before{transform:scaleX(1);}
+.skill-card:nth-child(1){--card-accent:var(--accent3);}
+.skill-card:nth-child(2){--card-accent:var(--accent);}
+.skill-card:nth-child(3){--card-accent:var(--accent2);}
+.skill-card:nth-child(4){--card-accent:var(--accent);}
+.skill-card:nth-child(5){--card-accent:var(--accent2);}
+.skill-card:nth-child(6){--card-accent:var(--accent4);}
+.skill-card::before{background:linear-gradient(90deg,var(--card-accent),transparent);}
+.skill-card:nth-child(1){border-top:1px solid rgba(123,47,255,.15);}
+.skill-card:nth-child(1):hover{border-color:rgba(123,47,255,.4);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 20px rgba(123,47,255,.15);}
+.skill-card:nth-child(2):hover{border-color:rgba(0,229,160,.4);box-shadow:0 16px 48px rgba(0,0,0,.5),var(--glow);}
+.skill-card:nth-child(3):hover{border-color:rgba(0,180,255,.4);box-shadow:0 16px 48px rgba(0,0,0,.5),var(--glow2);}
+.skill-card:nth-child(4):hover{border-color:rgba(0,229,160,.4);box-shadow:0 16px 48px rgba(0,0,0,.5),var(--glow);}
+.skill-card:nth-child(5):hover{border-color:rgba(0,180,255,.4);box-shadow:0 16px 48px rgba(0,0,0,.5),var(--glow2);}
+.skill-card:nth-child(6):hover{border-color:rgba(255,102,0,.3);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 20px rgba(255,102,0,.1);}
 .skill-icon{font-size:1.4rem;margin-bottom:.9rem;}
-.skill-cat{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.7rem;}
+.skill-cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.skill-card:nth-child(1) .skill-cat{color:var(--accent3);}
+.skill-card:nth-child(2) .skill-cat{color:var(--accent);}
+.skill-card:nth-child(3) .skill-cat{color:var(--accent2);}
+.skill-card:nth-child(4) .skill-cat{color:var(--accent);}
+.skill-card:nth-child(5) .skill-cat{color:var(--accent2);}
+.skill-card:nth-child(6) .skill-cat{color:rgba(255,102,0,.9);}
+/* tags instead of list */
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.skill-tag{font-family:'JetBrains Mono',monospace;font-size:.66rem;padding:.22rem .6rem;border-radius:2px;border:1px solid;transition:all .2s;cursor:default;}
+.skill-card:nth-child(1) .skill-tag{color:rgba(123,47,255,.85);border-color:rgba(123,47,255,.2);background:rgba(123,47,255,.05);}
+.skill-card:nth-child(1) .skill-tag:hover{background:rgba(123,47,255,.12);color:var(--accent3);}
+.skill-card:nth-child(2) .skill-tag{color:rgba(0,229,160,.85);border-color:rgba(0,229,160,.15);background:rgba(0,229,160,.04);}
+.skill-card:nth-child(2) .skill-tag:hover{background:rgba(0,229,160,.1);color:var(--accent);}
+.skill-card:nth-child(3) .skill-tag{color:rgba(0,180,255,.9);border-color:rgba(0,180,255,.18);background:rgba(0,180,255,.04);}
+.skill-card:nth-child(3) .skill-tag:hover{background:rgba(0,180,255,.1);color:var(--accent2);}
+.skill-card:nth-child(4) .skill-tag{color:rgba(0,229,160,.85);border-color:rgba(0,229,160,.15);background:rgba(0,229,160,.04);}
+.skill-card:nth-child(4) .skill-tag:hover{background:rgba(0,229,160,.1);color:var(--accent);}
+.skill-card:nth-child(5) .skill-tag{color:rgba(0,180,255,.9);border-color:rgba(0,180,255,.18);background:rgba(0,180,255,.04);}
+.skill-card:nth-child(5) .skill-tag:hover{background:rgba(0,180,255,.1);color:var(--accent2);}
+.skill-card:nth-child(6) .skill-tag{color:rgba(255,102,0,.85);border-color:rgba(255,102,0,.18);background:rgba(255,102,0,.04);}
+.skill-card:nth-child(6) .skill-tag:hover{background:rgba(255,102,0,.1);color:rgba(255,102,0,1);}
+/* keep old list style for compat */
 .skill-list{list-style:none;color:var(--muted);font-size:.87rem;line-height:2.1;}
 .skill-list li{display:flex;align-items:baseline;gap:.4rem;}
 .skill-list li::before{content:'›';color:var(--accent);font-size:1rem;}
 @keyframes floatCard{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-.skill-card:nth-child(1){animation:floatCard 6s ease-in-out infinite;}
-.skill-card:nth-child(2){animation:floatCard 6s ease-in-out 1s infinite;}
-.skill-card:nth-child(3){animation:floatCard 6s ease-in-out 2s infinite;}
-.skill-card:nth-child(4){animation:floatCard 6s ease-in-out 3s infinite;}
-.skill-card:nth-child(5){animation:floatCard 6s ease-in-out 4s infinite;}
-.skill-card:hover{animation:none;}
+
 @keyframes timelinePulse{0%,100%{box-shadow:0 0 0 4px rgba(0,229,160,.1),0 0 12px var(--accent);}50%{box-shadow:0 0 0 8px rgba(0,229,160,.05),0 0 24px var(--accent);}}
 .timeline-item::before{animation:timelinePulse 2.5s ease-in-out infinite;}
 @keyframes shimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
@@ -495,62 +606,123 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
       <span class="section-line"></span>
     </div>
     <h2 class="section-title reveal from-left">Compétences <em>techniques</em></h2>
-    <div class="skills-grid">
-      <div class="skill-card reveal from-bottom" style="transition-delay:.0s">
-        <div class="skill-icon">🛡️</div>
-        <div class="skill-cat">Réseaux & Sécurité</div>
-        <ul class="skill-list">
-          <li>TCP/IP, UDP, DNS, DHCP, NAT</li>
-          <li>Cryptologie</li>
-          <li>Architecture client-serveur</li>
-          <li>Bruteforce, Énumération</li>
-          <li>Exploitation web &amp; Post-exploitation</li>
-        </ul>
+    <div class="skills-container">
+
+      <div class="skill-row reveal from-left" style="transition-delay:.0s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">⚔️</span>
+          <span class="skill-row-cat">Offensif & Pentest</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">OWASP Top 10</span>
+          <span class="skill-pill">SQLi</span>
+          <span class="skill-pill">XSS</span>
+          <span class="skill-pill">LFI / RFI</span>
+          <span class="skill-pill">Privilege Escalation</span>
+          <span class="skill-pill">Post-exploitation</span>
+          <span class="skill-pill">Cryptanalyse</span>
+        </div>
       </div>
-      <div class="skill-card reveal from-bottom" style="transition-delay:.1s">
-        <div class="skill-icon">💻</div>
-        <div class="skill-cat">Développement</div>
-        <ul class="skill-list">
-          <li>Python (avancé)</li>
-          <li>C (système, mémoire)</li>
-          <li>Java — Programmation orientée objet avancée</li>
-          <li>OCaml — Programmation fonctionnelle</li>
-          <li>PHP, JavaScript, HTML/CSS</li>
-          <li>SQL</li>
-        </ul>
+
+      <div class="skill-row reveal from-left" style="transition-delay:.08s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">🛡️</span>
+          <span class="skill-row-cat">Défensif / Blue Team</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">SOC</span>
+          <span class="skill-pill">Analyse de logs</span>
+          <span class="skill-pill">IDS / IPS</span>
+          <span class="skill-pill">Hardening</span>
+          <span class="skill-pill">Réponse à incident</span>
+          <span class="skill-pill">Gestion des risques (ANSSI)</span>
+          <span class="skill-pill">Cryptologie</span>
+        </div>
       </div>
-      <div class="skill-card reveal from-bottom" style="transition-delay:.2s">
-        <div class="skill-icon">🖥️</div>
-        <div class="skill-cat">Systèmes</div>
-        <ul class="skill-list">
-          <li>Linux (Kali, Debian)</li>
-          <li>Administration Bash/Shell</li>
-          <li>Gestion mémoire / Valgrind</li>
-          <li>Architecture système</li>
-          <li>Programmation concurrente</li>
-        </ul>
+
+      <div class="skill-row reveal from-left" style="transition-delay:.16s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">🌐</span>
+          <span class="skill-row-cat">Réseaux</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">TCP/IP</span>
+          <span class="skill-pill">UDP</span>
+          <span class="skill-pill">DNS</span>
+          <span class="skill-pill">HTTP/S</span>
+          <span class="skill-pill">SSH</span>
+          <span class="skill-pill">ICMP</span>
+          <span class="skill-pill">VPN</span>
+          <span class="skill-pill">Firewalling</span>
+          <span class="skill-pill">Analyse de trafic</span>
+          <span class="skill-pill">Architecture client-serveur</span>
+        </div>
       </div>
-      <div class="skill-card reveal from-bottom" style="transition-delay:.3s">
-        <div class="skill-icon">📊</div>
-        <div class="skill-cat">Data & IA</div>
-        <ul class="skill-list">
-          <li>Machine Learning</li>
-          <li>Statistiques appliquées</li>
-          <li>NumPy, Pandas, Scikit-learn</li>
-          <li>Algorithmes génétiques</li>
-          <li>Monte-Carlo / MCTS</li>
-        </ul>
+
+      <div class="skill-row reveal from-left" style="transition-delay:.24s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">💻</span>
+          <span class="skill-row-cat">Développement</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">C</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">OCaml</span>
+          <span class="skill-pill">PHP</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">HTML / CSS</span>
+          <span class="skill-pill">SQL</span>
+        </div>
       </div>
-      <div class="skill-card reveal from-bottom" style="transition-delay:.4s">
-        <div class="skill-icon">🔧</div>
-        <div class="skill-cat">Outils</div>
-        <ul class="skill-list">
-          <li>Nmap, Wireshark, Gobuster</li>
-          <li>Git, GitHub</li>
-          <li>React, Anaconda, Eclipse IDE</li>
-          <li>Valgrind, Makefile</li>
-        </ul>
+
+      <div class="skill-row reveal from-left" style="transition-delay:.32s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">🖥️</span>
+          <span class="skill-row-cat">Systèmes</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">Linux Kali</span>
+          <span class="skill-pill">Debian</span>
+          <span class="skill-pill">Ubuntu</span>
+          <span class="skill-pill">Scripting Bash/Shell</span>
+          <span class="skill-pill">Synchronisation</span>
+          <span class="skill-pill">Gestion mémoire</span>
+        </div>
       </div>
+
+
+      <div class="skill-row reveal from-left" style="transition-delay:.48s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">📊</span>
+          <span class="skill-row-cat">IA & Data Science</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">Intelligence Artificielle</span>
+          <span class="skill-pill">IA pour les jeux</span>
+          <span class="skill-pill">Statistiques</span>
+          <span class="skill-pill">Statistiques appliquées</span>
+          <span class="skill-pill">Machine Learning</span>
+        </div>
+      </div>
+
+      <div class="skill-row reveal from-left" style="transition-delay:.4s">
+        <div class="skill-row-left">
+          <span class="skill-row-icon">🔧</span>
+          <span class="skill-row-cat">Outils</span>
+        </div>
+        <div class="skill-row-tags">
+          <span class="skill-pill">Nmap</span>
+          <span class="skill-pill">Gobuster</span>
+          <span class="skill-pill">Burp Suite</span>
+          <span class="skill-pill">Metasploit</span>
+          <span class="skill-pill">Hydra</span>
+          <span class="skill-pill">Wireshark</span>
+          <span class="skill-pill">Git</span>
+          <span class="skill-pill">Valgrind</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -687,51 +859,74 @@ footer{background:var(--bg);border-top:1px solid var(--border);text-align:center
       <span class="section-line"></span>
     </div>
     <h2 class="section-title reveal from-left"><em>Certifications</em></h2>
-    <div class="reveal from-bottom" style="transition-delay:.1s">
-      <div style="
-        background:var(--bg3);
-        border:1px solid var(--border);
-        border-radius:3px;
-        padding:2rem 2.5rem;
-        display:flex;
-        align-items:center;
-        gap:2.5rem;
-        position:relative;
-        overflow:hidden;
-        transition:border-color .3s,box-shadow .3s;
-        max-width:620px;
-      "
-      onmouseenter="this.style.borderColor='rgba(0,229,160,.35)';this.style.boxShadow='0 0 40px rgba(0,0,0,.4)'"
-      onmouseleave="this.style.borderColor='rgba(0,229,160,0.12)';this.style.boxShadow='none'"
-      >
-        <!-- Watermark number -->
-        <div style="position:absolute;right:1.5rem;top:1rem;font-family:'Oxanium',sans-serif;font-size:4rem;font-weight:800;color:rgba(0,229,160,.05);line-height:1;pointer-events:none;">01</div>
-        <!-- Top gradient bar -->
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff0000,#c11c1c,#ff4444);border-radius:3px 3px 0 0;"></div>
-        <!-- TryHackMe Logo SVG -->
-        <div style="flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
-            <rect width="100" height="100" rx="18" fill="#1a1a2e"/>
-            <text x="50" y="38" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="28" font-weight="900" fill="#ff0000">THM</text>
-            <rect x="18" y="48" width="64" height="3" rx="2" fill="#ff0000" opacity=".7"/>
-            <text x="50" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#e8eaf6" letter-spacing="1">TryHackMe</text>
-          </svg>
-        </div>
-        <!-- Content -->
-        <div style="flex:1;">
-          <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap;">
-            <span style="font-family:'Oxanium',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">Jr Penetration Tester</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent2);border:1px solid rgba(0,180,255,.35);background:rgba(0,180,255,.06);padding:.15rem .55rem;border-radius:2px;letter-spacing:.08em;display:inline-flex;align-items:center;gap:.4rem;">
-              <span style="width:6px;height:6px;border-radius:50%;background:var(--accent2);box-shadow:0 0 6px var(--accent2);display:inline-block;animation:pulse 2s infinite;"></span>
-              EN COURS
-            </span>
+    <div style="display:flex;flex-direction:column;gap:1.2rem;max-width:620px;">
+
+      <!-- CARTE ANSSI -->
+      <div class="reveal from-bottom" style="transition-delay:.1s">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:2rem 2.5rem;display:flex;align-items:center;gap:2.5rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;"
+        onmouseenter="this.style.borderColor='rgba(0,100,200,.5)';this.style.boxShadow='0 0 40px rgba(0,0,0,.4)'"
+        onmouseleave="this.style.borderColor='rgba(0,229,160,0.12)';this.style.boxShadow='none'">
+          <div style="position:absolute;right:1.5rem;top:1rem;font-family:'Oxanium',sans-serif;font-size:4rem;font-weight:800;color:rgba(0,80,200,.06);line-height:1;pointer-events:none;">01</div>
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#003189,#0057d8,#003189);border-radius:3px 3px 0 0;"></div>
+          <!-- ANSSI Logo -->
+          <div style="flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+              <rect width="100" height="100" rx="18" fill="#001f5e"/>
+              <text x="50" y="36" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="20" font-weight="900" fill="#ffffff">ANSSI</text>
+              <rect x="15" y="44" width="70" height="2" rx="1" fill="#0057d8" opacity=".8"/>
+              <text x="50" y="62" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#aac4ff" letter-spacing="0.5">SecNumacadémie</text>
+            </svg>
           </div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#ff4444;margin-bottom:.7rem;letter-spacing:.05em;">TryHackMe &nbsp;&middot;&nbsp; 2025</div>
-          <p style="font-size:.87rem;color:var(--muted);line-height:1.75;">
-            Parcours officiel couvrant la reconnaissance, l'exploitation web, la post-exploitation, Metasploit, Burp Suite et les techniques de pivoting.
-          </p>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap;">
+              <span style="font-family:'Oxanium',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">SecNumacadémie</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent2);border:1px solid rgba(0,180,255,.35);background:rgba(0,180,255,.06);padding:.15rem .55rem;border-radius:2px;letter-spacing:.08em;display:inline-flex;align-items:center;gap:.4rem;">
+                <span style="width:6px;height:6px;border-radius:50%;background:var(--accent2);box-shadow:0 0 6px var(--accent2);display:inline-block;animation:pulse 2s infinite;"></span>
+                EN COURS
+              </span>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#4d8fff;margin-bottom:.5rem;letter-spacing:.05em;">ANSSI — Agence Nationale de la Sécurité des SI</div>
+            <p style="font-size:.87rem;color:var(--muted);line-height:1.75;">MOOC officiel de l'ANSSI couvrant les fondamentaux de la cybersécurité.</p>
+          </div>
         </div>
       </div>
+
+      <!-- CARTE TRYHACKME -->
+      <div class="reveal from-bottom" style="transition-delay:.2s">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:2rem 2.5rem;display:flex;align-items:center;gap:2.5rem;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;"
+        onmouseenter="this.style.borderColor='rgba(255,50,50,.4)';this.style.boxShadow='0 0 40px rgba(0,0,0,.4)'"
+        onmouseleave="this.style.borderColor='rgba(0,229,160,0.12)';this.style.boxShadow='none'">
+          <div style="position:absolute;right:1.5rem;top:1rem;font-family:'Oxanium',sans-serif;font-size:4rem;font-weight:800;color:rgba(255,0,0,.05);line-height:1;pointer-events:none;">02</div>
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff0000,#c11c1c,#ff4444);border-radius:3px 3px 0 0;"></div>
+          <!-- TryHackMe Logo -->
+          <div style="flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+              <rect width="100" height="100" rx="18" fill="#1a1a2e"/>
+              <text x="50" y="38" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="28" font-weight="900" fill="#ff0000">THM</text>
+              <rect x="18" y="48" width="64" height="3" rx="2" fill="#ff0000" opacity=".7"/>
+              <text x="50" y="72" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#e8eaf6" letter-spacing="1">TryHackMe</text>
+            </svg>
+          </div>
+          <div style="flex:1;">
+            <!-- Pre Security -->
+            <div style="margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap;">
+                <span style="font-family:'Oxanium',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">Pre Security</span>
+              </div>
+              <p style="font-size:.87rem;color:var(--muted);line-height:1.75;">Fondamentaux réseaux, Linux, sécurité web et introduction aux outils offensifs.</p>
+            </div>
+            <!-- Jr Penetration Tester -->
+            <div>
+              <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap;">
+                <span style="font-family:'Oxanium',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);">Jr Penetration Tester</span>
+  
+              </div>
+              <p style="font-size:.87rem;color:var(--muted);line-height:1.75;">Parcours officiel couvrant la reconnaissance, l'exploitation web, la post-exploitation, Metasploit, Burp Suite et les techniques de pivoting.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
